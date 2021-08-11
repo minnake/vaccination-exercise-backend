@@ -12,18 +12,21 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
         console.log('error connecting to MongoDB:', error.message)
     })
 
-const vaccineSchema = new mongoose.Schema({
+const itemSchema = new mongoose.Schema({
     id: String,
-    sourceBottle: String,
-    gender: String,
-    vaccinationDate: Date
+    orderNumber: String,
+    responsiblePerson: String,
+    healthCareDistrict: String,
+    vaccine: String,
+    injections: String,
+    arrived: Date,
 })
 
-vaccineSchema.set('toJSON', {
+itemSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
     }
 })
 
-module.exports = mongoose.model('Vaccination', vaccineSchema)
+module.exports = mongoose.model('Manufacturers', itemSchema)

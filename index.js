@@ -1,31 +1,23 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const mongoose = require('mongoose')
 require('dotenv').config()
 const Vaccination = require('./models/vaccinations')
+//const Manufacturers = require('./models/manufacturers')
 
-// ÄLÄ KOSKAAN TALLETA SALASANOJA githubiin!
-const url =
-    'mongodb+srv://minna:testi123@cluster0.hujxy.mongodb.net/vaccination-exercise?retryWrites=true&w=majority'
+app.use(express.static('build'))
+app.use(cors())
+app.use(express.json())
 
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+const requestLogger = (request, response, next) => {
+    console.log('Method:', request.method)
+    console.log('Path:  ', request.path)
+    console.log('Body:  ', request.body)
+    console.log('---')
+    next()
+}
 
-const itemSchema = new mongoose.Schema({
-    id: String,
-    sourceBottle: String,
-    gender: String,
-    vaccinationDate: String
-})
-
-itemSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-        returnedObject.id = returnedObject._id.toString()
-        delete returnedObject._id
-    }
-})
-
-const Vaccination = mongoose.model('Vaccination', itemSchema)
+app.use(requestLogger)
 
 app.get('/api/vaccinations', (request, response) => {
     Vaccination.find({}).then(vaccinations => {
@@ -33,41 +25,23 @@ app.get('/api/vaccinations', (request, response) => {
     })
 })
 
-/* async function main() {
-    const uri = "mongodb+srv://minna:testi123@cluster0.hujxy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-    const client = new MongoClient(uri)
+/*app.get('/api/antiquas', (request, response) => {
+    Manufacturers.find({}).then(antiquas => {
+        response.json(antiquas)
+    })
+})
 
-    try {
-        await client.connect()
-        await listDatabases(client)
-        await findOneListingByName(client)
-    } catch (e) {
-        console.log(e)
-    } finally {
-        await client.close()
-    }
-}
-
-main().catch(console.error)
-
-async function listDatabases(client) {
-    databasesList = await client.db().admin().listDatabases()
-
-    console.log("Databases: ")
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`))
-}
-
-async function findOneListingByName (client, nameOfListing) {
-    const result = await client.db("Vaccinations").collection("Antiqua").findOne()
-
-    if (result) {
-        console.log(`Found a listing in the collection with the name: `);
-        console.log(result);
-    } else {
-        console.log(`No listings found with the name`);
-    }
-} */
-
+ app.get('/api/solarbuddhicas', (request, response) => {
+    Manufacturers.find({}).then(solarbuddhicas => {
+        response.json(solarbuddhicas)
+    })
+})
+app.get('/api/zerpfies', (request, response) => {
+    Manufacturers.find({}).then(zerpfies => {
+        response.json(zerpfies)
+    })
+})
+ */
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
@@ -75,4 +49,3 @@ app.listen(PORT, () => {
 })
 
 
-app.use(cors())
