@@ -19,7 +19,7 @@ const itemSchema = new mongoose.Schema({
     healthCareDistrict: String,
     vaccine: String,
     injections: String,
-    arrived: Date,
+    arrived: String,
 })
 
 itemSchema.set('toJSON', {
