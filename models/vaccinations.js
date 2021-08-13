@@ -24,13 +24,6 @@ const itemSchema = new mongoose.Schema({
     arrived: Date,
 })
 
-itemSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-        returnedObject.id = returnedObject._id.toString()
-        delete returnedObject._id
-    }
-})
-
 const Antiqua = mongoose.model("Antiqua", itemSchema)
 const SolarBuddhica = mongoose.model("SolarBuddhica", itemSchema)
 const Zerpfy = mongoose.model("Zerpfy", itemSchema)
