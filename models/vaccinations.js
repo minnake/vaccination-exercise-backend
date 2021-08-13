@@ -16,11 +16,11 @@ vaccineSchema.set('toJSON', {
 
 const itemSchema = new mongoose.Schema({
     id: String,
-    orderNumber: Int32,
+    orderNumber: Number,
     responsiblePerson: String,
     healthCareDistrict: String,
     vaccine: String,
-    injections: Int32,
+    injections: Number,
     arrived: Date,
 })
 
